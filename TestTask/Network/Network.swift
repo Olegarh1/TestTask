@@ -4,7 +4,7 @@
 //
 // Created by Oleg Zakladnyi on 15.06.2025
 
-import Foundation
+import UIKit
 
 final class Network {
     
@@ -26,7 +26,7 @@ final class Network {
                                             completion: response).resume()
     }
     
-    func signUpUser(_ requestModel: SignUpRequestModel, token: String, response: @escaping NetworkCompletion<SignUpModel>) {
+    func signUpUser(_ requestModel: SignUpRequestModel, image: UIImage, token: String, response: @escaping NetworkCompletion<SignUpModel>) {
         guard let url = URL(string: endpoint + "/users") else {
             print("Wrong enpoint")
             return

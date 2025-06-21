@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C8025F32E06A22600E9D612 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8025F22E06A21800E9D612 /* TextFieldView.swift */; };
+		7C8025F52E06A3F300E9D612 /* PhotoSourceAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8025F42E06A3F100E9D612 /* PhotoSourceAlert.swift */; };
+		7C80260A2E06ABD400E9D612 /* RegistrationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8026092E06ABD000E9D612 /* RegistrationModel.swift */; };
+		7C80260C2E06BFF700E9D612 /* RegistrationResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80260B2E06BFEB00E9D612 /* RegistrationResultViewController.swift */; };
 		7CC4666A2DFEA3AE000BCD04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC466652DFEA3AE000BCD04 /* AppDelegate.swift */; };
 		7CC4666B2DFEA3AE000BCD04 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC466662DFEA3AE000BCD04 /* SignUpViewController.swift */; };
 		7CC4666C2DFEA3AE000BCD04 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC466672DFEA3AE000BCD04 /* TabBarController.swift */; };
@@ -37,6 +41,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C8025F22E06A21800E9D612 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		7C8025F42E06A3F100E9D612 /* PhotoSourceAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSourceAlert.swift; sourceTree = "<group>"; };
+		7C8026092E06ABD000E9D612 /* RegistrationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModel.swift; sourceTree = "<group>"; };
+		7C80260B2E06BFEB00E9D612 /* RegistrationResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationResultViewController.swift; sourceTree = "<group>"; };
 		7CC466412DFEA1E2000BCD04 /* TestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CC4665E2DFEA3AE000BCD04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CC4665F2DFEA3AE000BCD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -174,6 +182,8 @@
 		7CC466B12DFEA8A8000BCD04 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				7C80260B2E06BFEB00E9D612 /* RegistrationResultViewController.swift */,
+				7C8026092E06ABD000E9D612 /* RegistrationModel.swift */,
 				7CC466662DFEA3AE000BCD04 /* SignUpViewController.swift */,
 			);
 			path = SignUp;
@@ -227,8 +237,10 @@
 		7CC466F32DFEB13D000BCD04 /* CustromSubviews */ = {
 			isa = PBXGroup;
 			children = (
+				7C8025F22E06A21800E9D612 /* TextFieldView.swift */,
 				7CC467292DFEFA78000BCD04 /* RadioButton.swift */,
 				7CC466F42DFEB14B000BCD04 /* AlertView.swift */,
+				7C8025F42E06A3F100E9D612 /* PhotoSourceAlert.swift */,
 				7CC467242DFEBBE5000BCD04 /* BaseViewController.swift */,
 			);
 			path = CustromSubviews;
@@ -314,9 +326,13 @@
 				7CC466912DFEA49C000BCD04 /* UIColor.swift in Sources */,
 				7CC4666A2DFEA3AE000BCD04 /* AppDelegate.swift in Sources */,
 				7CC4666B2DFEA3AE000BCD04 /* SignUpViewController.swift in Sources */,
+				7C80260A2E06ABD400E9D612 /* RegistrationModel.swift in Sources */,
 				7CC466EB2DFEADBE000BCD04 /* RequestModels.swift in Sources */,
 				7CC466E72DFEAD32000BCD04 /* Network+Extensions.swift in Sources */,
+				7C8025F52E06A3F300E9D612 /* PhotoSourceAlert.swift in Sources */,
+				7C8025F32E06A22600E9D612 /* TextFieldView.swift in Sources */,
 				7CC4666C2DFEA3AE000BCD04 /* TabBarController.swift in Sources */,
+				7C80260C2E06BFF700E9D612 /* RegistrationResultViewController.swift in Sources */,
 				7CC4666D2DFEA3AE000BCD04 /* UsersViewController.swift in Sources */,
 				7CC466AF2DFEA649000BCD04 /* TabBarItem.swift in Sources */,
 				7CC4670C2DFEB37B000BCD04 /* UsersTableView.swift in Sources */,
@@ -367,11 +383,12 @@
 				DEVELOPMENT_TEAM = WC3A7F459D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TestTask/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to take a photo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to choose a photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -395,11 +412,12 @@
 				DEVELOPMENT_TEAM = WC3A7F459D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TestTask/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to take a photo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to choose a photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

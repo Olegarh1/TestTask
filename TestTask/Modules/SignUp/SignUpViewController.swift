@@ -5,8 +5,10 @@
 // Created by Oleg Zakladnyi on 15.06.2025
 
 import UIKit
+import AVFoundation
+import Photos
 
-class SignUpViewController: BaseViewController {
+class SignUpViewController: BaseViewController, UINavigationControllerDelegate {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -21,24 +23,14 @@ class SignUpViewController: BaseViewController {
         return view
     }()
     
-    private lazy var nameTextFiled = createTextField(placeholder: "Your name")
-    private lazy var emailTextFiled = createTextField(placeholder: "Email")
-    private lazy var phoneTextFiled = createTextField(placeholder: "Phone")
-    
-    private lazy var phoneLabel: UILabel = {
-        let label = UILabel()
-        label.text = "+38 (XXX) XXX - XX - XX"
-        label.font = .setFont(.nunitoRegular, size: 14)
-        label.textColor = .black.withAlphaComponent(0.6)
-        label.textAlignment = .left
-        return label
-    }()
+    private lazy var nameView = TextFieldView(type: .username, placeholder: "Your name")
+    private lazy var emailView = TextFieldView(type: .email, placeholder: "Email")
+    private lazy var phoneView = TextFieldView(type: .phone, placeholder: "Phone")
     
     private lazy var userDataStack: UIStackView = {
-        let vstack = UIStackView(arrangedSubviews: [nameTextFiled, emailTextFiled, phoneTextFiled, phoneLabel])
+        let vstack = UIStackView(arrangedSubviews: [nameView, emailView, phoneView])
         vstack.axis = .vertical
-        vstack.spacing = 32
-        vstack.setCustomSpacing(0, after: phoneTextFiled)
+        vstack.spacing = 10
         vstack.translatesAutoresizingMaskIntoConstraints = false
         return vstack
     }()
@@ -58,12 +50,12 @@ class SignUpViewController: BaseViewController {
         vstack.axis = .vertical
         vstack.spacing = 12
         vstack.alignment = .leading
-        vstack.setCustomSpacing(0, after: phoneTextFiled)
+        vstack.setCustomSpacing(0, after: phoneView)
         vstack.translatesAutoresizingMaskIntoConstraints = false
         return vstack
     }()
     
-    private lazy var uploadTextFiled = createTextField(placeholder: "Upload your photo")
+    private lazy var uploadView = TextFieldView(type: .camera, placeholder: "Upload your photo")
     
     private lazy var signUpButton: UIButton = {
         var config = UIButton.Configuration.filled()
@@ -75,6 +67,7 @@ class SignUpViewController: BaseViewController {
         
         let button = UIButton()
         button.configuration = config
+        button.addTarget(self, action: #selector(signUpButtonAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -85,6 +78,8 @@ class SignUpViewController: BaseViewController {
         }
     }
     private var selectedButton: UIButton?
+    private var selectedImage: UIImage?
+    private var signUpModel = SignUpRequestModel(name: "", email: "", phone: "", position_id: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,17 +94,28 @@ private extension SignUpViewController {
         view.backgroundColor = .white
         setupSubviews()
         setupConstraints()
+        setupTapGesture()
+        setupDelegates()
     }
     
     func setupSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        [userDataStack, positionLabel, positionStack, uploadTextFiled, signUpButton].forEach {
+        [userDataStack, positionLabel, positionStack, uploadView, signUpButton].forEach {
             contentView.addSubview($0)
         }
         
-        uploadTextFiled.isUserInteractionEnabled = false
+        uploadView.addRightView(text: "Upload", target: self, action: #selector(uploadButtonAction))
+    }
+    
+    func setupDelegates() {
+        [nameView, emailView, phoneView, uploadView].forEach { $0.delegate = self }
+    }
+    
+    func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissEditing))
+        view.addGestureRecognizer(tapGesture)
     }
     
     func setupConstraints() {
@@ -137,11 +143,11 @@ private extension SignUpViewController {
             positionStack.leadingAnchor.constraint(equalTo: userDataStack.leadingAnchor, constant: 24),
             positionStack.trailingAnchor.constraint(equalTo: userDataStack.trailingAnchor),
             
-            uploadTextFiled.topAnchor.constraint(equalTo: positionStack.bottomAnchor, constant: 16),
-            uploadTextFiled.leadingAnchor.constraint(equalTo: userDataStack.leadingAnchor),
-            uploadTextFiled.trailingAnchor.constraint(equalTo: userDataStack.trailingAnchor),
+            uploadView.topAnchor.constraint(equalTo: positionStack.bottomAnchor, constant: 16),
+            uploadView.leadingAnchor.constraint(equalTo: userDataStack.leadingAnchor),
+            uploadView.trailingAnchor.constraint(equalTo: userDataStack.trailingAnchor),
             
-            signUpButton.topAnchor.constraint(equalTo: uploadTextFiled.bottomAnchor, constant: 16),
+            signUpButton.topAnchor.constraint(equalTo: uploadView.bottomAnchor, constant: 16),
             signUpButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             signUpButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100)
         ])
@@ -152,11 +158,13 @@ private extension SignUpViewController {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let model):
-                    guard let positions = model.positions, model.success else {
+                    guard let positions = model.positions, model.success,
+                    let firstPositionID = positions.first?.id else {
                         AlertView.showError(model.message ?? "No position enabled", on: self)
                         return
                     }
                     self.positions = positions
+                    self.signUpModel.position_id = firstPositionID
                     
                 case .failure(let error):
                     AlertView.showError(error.localizedDescription, on: self)
@@ -196,33 +204,213 @@ private extension SignUpViewController {
         signUpButton.configuration?.baseForegroundColor = state ? .black : .black.withAlphaComponent(0.48)
     }
     
-    func createTextField(placeholder: String) -> UITextField {
-        let textField = UITextField()
-        textField.placeholder = placeholder
-        textField.font = .setFont(.nunitoRegular, size: 18)
-        textField.layer.cornerRadius = 4
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor(hex: "#D0CFCF").cgColor
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        
-        let paddingViewLeft = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 56))
-        textField.leftView = paddingViewLeft
-        textField.leftViewMode = .always
-        
-        let paddingViewRight = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 56))
-        textField.rightView = paddingViewRight
-        textField.rightViewMode = .always
-        
-        return textField
+    func isValidData() -> Bool {
+        [nameView, emailView, phoneView, uploadView].forEach { $0.validate() }
+        return [nameView, emailView, phoneView, uploadView].allSatisfy { $0.validate() }
     }
 
-    @objc
-    func positionButtonAction(_ sender: UIButton) {
-        guard let button = sender as? RadioButton else { return }
+    func generateToken() {
+        Network.shared.generateToken { response in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let token):
+                    guard token.success else {
+                        AlertView.showError("Failed to get user token", on: self)
+                        return
+                    }
+                    self.registUser(token.token)
+                case .failure(let error):
+                    AlertView.showError(error.localizedDescription, on: self)
+                }
+            }
+        }
+    }
+    
+    func registUser(_ token: String?) {
+        guard let token = token else {
+            AlertView.showError("Wrong token \(token ?? "null")", on: self)
+            return
+        }
+        
+        guard let image = selectedImage else {
+            AlertView.showError("Wrong image", on: self)
+            return
+        }
+        
+        Network.shared.signUpUser(signUpModel, image: image, token: token) { response in
+            print("Regist response is \(response)")
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let model):
+                    let vc = RegistrationResultViewController(success: model.success, message: model.message ?? "")
+                    self.present(vc, animated: true)
+                case .failure(let error):
+                    AlertView.showError(error.localizedDescription, on: self)
+                }
+            }
+        }
+    }
+}
 
+@objc
+private extension SignUpViewController {
+    func dismissEditing() {
+        view.endEditing(true)
+    }
+    
+    func signUpButtonAction(_ sender: UIButton) {
+        sender.showAnimation { [weak self] in
+            guard let self = self else { return }
+            guard isValidData() else { return }
+            
+            generateToken()
+        }
+    }
+    
+    func positionButtonAction(_ sender: UIButton) {
+        guard let button = sender as? RadioButton,
+              let positionID = positions[button.tag].id else { return }
+        
+        signUpModel.position_id = positionID
         selectedButton?.isSelected = false
         button.isSelected = true
         selectedButton = button
+    }
+    
+    func uploadButtonAction(_ sender: UIButton) {
+        sender.showAnimation {
+            PhotoSourceAlert.present(over: self,
+                                     cameraHandler: { [weak self] in
+                self?.openCamera()
+            },
+                                     galleryHandler: { [weak self] in
+                self?.openGallery()
+            })
+        }
+    }
+}
+
+extension SignUpViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let url = info[.imageURL] as? URL {
+            let fileName = url.lastPathComponent
+            uploadView.setText(fileName)
+        } else {
+            uploadView.setText("Photo.jpg")
+        }
+        
+        if let editedImage = info[.editedImage] as? UIImage {
+            handleSelectedImage(editedImage)
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            handleSelectedImage(originalImage)
+        }
+        
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
+    func handleSelectedImage(_ image: UIImage) {
+        selectedImage = image
+    }
+    
+    private func openCamera() {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        
+        DispatchQueue.main.async {
+            switch status {
+            case .authorized:
+                self.presentCamera()
+                
+            case .notDetermined:
+                AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+                    self?.openGallery()
+                }
+                
+            case .denied, .restricted:
+                AlertView.showAlertMessage(title: "Camera access", message: "To take photo you need to acees camera", closeAction: "Cancel", action: "Open settings", completion: {
+                    if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
+                       UIApplication.shared.canOpenURL(settingsUrl) {
+                        UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
+                    }
+                }, on: self)
+                
+            @unknown default:
+                self.openGallery()
+            }
+        }
+    }
+    
+    private func presentCamera() {
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            AlertView.showError("Camera not available on this device.", on: self)
+            return
+        }
+
+        let picker = UIImagePickerController()
+        picker.mediaTypes = ["public.image"]
+        picker.delegate = self
+        picker.sourceType = .camera
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
+
+    private func openGallery() {
+        let status = PHPhotoLibrary.authorizationStatus()
+        
+        DispatchQueue.main.async {
+            switch status {
+            case .authorized, .limited:
+                self.presentGallery()
+                
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization { [weak self] newStatus in
+                    self?.presentGallery()
+                }
+                
+            case .denied, .restricted:
+                AlertView.showAlertMessage(title: "Gallery access", message: "To select photo you need to access gallery", closeAction: "Cancel", action: "Open settings", completion: {
+                    if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
+                       UIApplication.shared.canOpenURL(settingsUrl) {
+                        UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
+                    }
+                }, on: self)
+                
+            @unknown default:
+                self.presentGallery()
+            }
+        }
+    }
+
+    private func presentGallery() {
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+            AlertView.showError("Gallery not available on this device.", on: self)
+            return
+        }
+        
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        picker.mediaTypes = ["public.image"]
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
+}
+
+extension SignUpViewController: TextFieldViewDelegate {
+    func didEndEditing(_ text: String?, type: TextFieldType) {
+        guard let text = text else { return }
+        switch type {
+        case .username:
+            signUpModel.name = text
+        case .email:
+            signUpModel.email = text.lowercased()
+        case .phone:
+            signUpModel.phone = text
+        default:
+            break
+        }
     }
 }

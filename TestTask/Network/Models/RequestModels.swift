@@ -16,10 +16,9 @@ struct UsersRequestModel: Codable {
 }
 
 struct SignUpRequestModel: Codable {
-    let name: String
-    let email: String
-    let phone: String
-    let position_id: Int
-    let photo: String // string($binary)
+    var name: String
+    var email: String
+    var phone: String
+    var position_id: Int // string($binary)
 //    Minimum size of photo 70x70px. The photo format must be jpeg/jpg type. The photo size must not be greater than 5 Mb.
 }

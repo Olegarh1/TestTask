@@ -13,4 +13,29 @@ final class AlertView {
         alert.addAction(UIAlertAction(title: "Ок", style: .default))
         viewController.present(alert, animated: true)
     }
+    
+    static func showAlertMessage(title: String,
+                                 message: String,
+                                 closeAction: String? = nil,
+                                 action: String,
+                                 actionStyle: UIAlertAction.Style = .default,
+                                 completion: (() -> Void)? = nil,
+                                 onCloseCompletion: (() -> Void)? = nil,
+                                 on viewController: UIViewController) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        if let closeTitle = closeAction {
+            let close = UIAlertAction(title: closeTitle, style: .cancel) { _ in
+                onCloseCompletion?()
+            }
+            alert.addAction(close)
+        }
+        
+        let okay = UIAlertAction(title: action, style: actionStyle) { _ in
+            completion?()
+        }
+        alert.addAction(okay)
+        
+        viewController.present(alert, animated: true)
+    }
 }

@@ -38,7 +38,7 @@ private extension UsersViewController {
     }
     
     func getUsers(page: Int) {
-        Network.shared.getUsers(UsersRequestModel(page: page, count: 10)) { response in
+        Network.shared.getUsers(UsersRequestModel(page: page, count: 6)) { response in
             DispatchQueue.main.async {
                 switch response {
                 case .success(let model):

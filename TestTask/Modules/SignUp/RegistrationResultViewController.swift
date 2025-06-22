@@ -8,8 +8,18 @@ import UIKit
 
 class RegistrationResultViewController: UIViewController {
     
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.tintColor = .black.withAlphaComponent(0.48)
+        button.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = success ? UIImage(named: "successImage") : UIImage(named: "FailedImage")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -18,25 +28,20 @@ class RegistrationResultViewController: UIViewController {
         let label = UILabel()
         label.text = message
         label.font = .setFont(.nunitoRegular, size: 24)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         label.textColor = .black
         return label
     }()
     
-    private lazy var button: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(hex: "#F4E041")
-        button.layer.cornerRadius = 24
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        return button
-    }()
+    private lazy var button: UIButton = ButtonDefault(title: success ? "Got it" : "Try again", target: self, action: #selector(dismissView))
     
     private lazy var mainStack: UIStackView = {
         let vstack = UIStackView(arrangedSubviews: [imageView, resultLabel, button])
         vstack.axis = .vertical
         vstack.alignment = .center
         vstack.spacing = 24
+        vstack.translatesAutoresizingMaskIntoConstraints = false
         return vstack
     }()
     
@@ -46,7 +51,7 @@ class RegistrationResultViewController: UIViewController {
     init(success: Bool, message: String) {
         self.success = success
         self.message = message
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -55,7 +60,6 @@ class RegistrationResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = success ? UIImage(named: "successImage") : UIImage(named: "FailedImage")
         setupUI()
     }
 }
@@ -63,19 +67,27 @@ class RegistrationResultViewController: UIViewController {
 private extension RegistrationResultViewController {
     func setupUI() {
         view.backgroundColor = .white
+        
+        view.addSubview(closeButton)
         view.addSubview(mainStack)
         
         NSLayoutConstraint.activate([
-            mainStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            closeButton.widthAnchor.constraint(equalToConstant: 24),
+            closeButton.heightAnchor.constraint(equalToConstant: 24),
+            
+            mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             mainStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            mainStack.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, constant: 48)
+            mainStack.heightAnchor.constraint(lessThanOrEqualTo: view.heightAnchor, multiplier: 0.9)
         ])
     }
     
     @objc
-    func buttonAction(_ sender: UIButton) {
+    func dismissView(_ sender: UIButton) {
         sender.showAnimation {
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true)
         }
     }
 }

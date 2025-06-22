@@ -37,8 +37,17 @@ private extension UsersViewController {
         showNoUsersView(true)
     }
     
-    func getUsers(page: Int) {
-        Network.shared.getUsers(UsersRequestModel(page: page, count: 6)) { response in
+    func getUsers(page: Int, retryCount: Int = 3, delay: TimeInterval = 2) {
+        guard NetworkMonitor.shared.isConnected else {
+            NetworkMonitor.shared.runWhenConnected {
+                self.getUsers(page: page, retryCount: retryCount, delay: delay)
+            }
+            return
+        }
+        
+        let requestModel = UsersRequestModel(page: page, count: 6)
+        
+        Network.shared.getUsers(requestModel) { response in
             DispatchQueue.main.async {
                 switch response {
                 case .success(let model):
@@ -47,9 +56,15 @@ private extension UsersViewController {
                         return
                     }
                     self.usersData = model
-                   
+
                 case .failure(let error):
-                    AlertView.showError(error.localizedDescription, on: self)
+                    if retryCount > 1 {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                            self.getUsers(page: page, retryCount: retryCount - 1, delay: delay)
+                        }
+                    } else {
+                        AlertView.showError(error.localizedDescription, on: self)
+                    }
                 }
             }
         }

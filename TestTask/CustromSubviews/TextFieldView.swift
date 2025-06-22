@@ -30,6 +30,7 @@ class TextFieldView: UIView {
         textField.layer.cornerRadius = 4
         textField.layer.borderWidth = 1
         textField.layer.borderColor = borderColor
+        textField.autocapitalizationType = textFieldType == .email ? .none : .sentences
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         let paddingViewLeft = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 56))
@@ -56,6 +57,7 @@ class TextFieldView: UIView {
     private let customFont: UIFont
     private let textFieldType: TextFieldType
     
+    private let phonePrefix = "+380"
     private let errorColor = UIColor(hex: "#CB3D40")
     private let borderColor = UIColor(hex: "#D0CFCF").cgColor
     
@@ -157,6 +159,28 @@ extension TextFieldView: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         hideError()
         guard textFieldType != .camera else { return false }
+        
+        if textFieldType == .phone && (textField.text?.isEmpty ?? true) {
+            textField.text = phonePrefix
+        }
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard textFieldType == .phone else { return true }
+        
+        let currentText = textField.text ?? ""
+        guard let textRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: textRange, with: string)
+        
+        if updatedText.count < phonePrefix.count {
+            return false
+        }
+        
+        if !updatedText.hasPrefix(phonePrefix) {
+            return false
+        }
+        
         return true
     }
     
@@ -203,7 +227,7 @@ extension TextFieldView: UITextFieldDelegate {
             let regex = try NSRegularExpression(pattern: regexPattern, options: [.caseInsensitive])
             let range = NSRange(location: 0, length: email.utf16.count)
             if regex.firstMatch(in: email, options: [], range: range) == nil {
-                showError("User email must be valid (RFC2822)")
+                showError("Invalid email format")
                 return false
             } else {
                 hideError()
@@ -218,6 +242,9 @@ extension TextFieldView: UITextFieldDelegate {
 
     @discardableResult
     private func validatePhone() -> Bool {
+        if textField.text == phonePrefix {
+            textField.text = ""
+        }
         guard let phone = textField.text, !phone.isEmpty else {
             showError("Required field")
             return false
@@ -238,7 +265,7 @@ extension TextFieldView: UITextFieldDelegate {
     @discardableResult
     private func validateCamera() -> Bool {
         guard let text = textField.text, !text.isEmpty else {
-            showError("Required field")
+            showError("Photo is required")
             return false
         }
         

@@ -11,6 +11,14 @@
 		7C8025F52E06A3F300E9D612 /* PhotoSourceAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8025F42E06A3F100E9D612 /* PhotoSourceAlert.swift */; };
 		7C80260A2E06ABD400E9D612 /* RegistrationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8026092E06ABD000E9D612 /* RegistrationModel.swift */; };
 		7C80260C2E06BFF700E9D612 /* RegistrationResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80260B2E06BFEB00E9D612 /* RegistrationResultViewController.swift */; };
+		7C8355E02E080EAF005AA12E /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8355DF2E080EAB005AA12E /* Data.swift */; };
+		7C8355E22E0810F7005AA12E /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8355E12E0810F6005AA12E /* ImagePickerManager.swift */; };
+		7C8355F72E081332005AA12E /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8355F62E08132E005AA12E /* UIButton.swift */; };
+		7C83560C2E081438005AA12E /* NetworkConnectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C83560B2E08142C005AA12E /* NetworkConnectionVC.swift */; };
+		7C83560E2E081484005AA12E /* ButtonDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C83560D2E08147F005AA12E /* ButtonDefault.swift */; };
+		7C8356102E08161C005AA12E /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C83560F2E08161B005AA12E /* NetworkMonitor.swift */; };
+		7C8356122E081632005AA12E /* NetworkOverlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8356112E081631005AA12E /* NetworkOverlayManager.swift */; };
+		7C8356142E081D90005AA12E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8356132E081D8F005AA12E /* SceneDelegate.swift */; };
 		7CC4666A2DFEA3AE000BCD04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC466652DFEA3AE000BCD04 /* AppDelegate.swift */; };
 		7CC4666B2DFEA3AE000BCD04 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC466662DFEA3AE000BCD04 /* SignUpViewController.swift */; };
 		7CC4666C2DFEA3AE000BCD04 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC466672DFEA3AE000BCD04 /* TabBarController.swift */; };
@@ -45,6 +53,14 @@
 		7C8025F42E06A3F100E9D612 /* PhotoSourceAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSourceAlert.swift; sourceTree = "<group>"; };
 		7C8026092E06ABD000E9D612 /* RegistrationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModel.swift; sourceTree = "<group>"; };
 		7C80260B2E06BFEB00E9D612 /* RegistrationResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationResultViewController.swift; sourceTree = "<group>"; };
+		7C8355DF2E080EAB005AA12E /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		7C8355E12E0810F6005AA12E /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
+		7C8355F62E08132E005AA12E /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		7C83560B2E08142C005AA12E /* NetworkConnectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConnectionVC.swift; sourceTree = "<group>"; };
+		7C83560D2E08147F005AA12E /* ButtonDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDefault.swift; sourceTree = "<group>"; };
+		7C83560F2E08161B005AA12E /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		7C8356112E081631005AA12E /* NetworkOverlayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOverlayManager.swift; sourceTree = "<group>"; };
+		7C8356132E081D8F005AA12E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7CC466412DFEA1E2000BCD04 /* TestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CC4665E2DFEA3AE000BCD04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CC4665F2DFEA3AE000BCD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -119,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				7CC466652DFEA3AE000BCD04 /* AppDelegate.swift */,
+				7C8356132E081D8F005AA12E /* SceneDelegate.swift */,
 				7CC466AC2DFEA633000BCD04 /* Modules */,
 				7CC466CE2DFEAC0B000BCD04 /* Network */,
 				7CC4668A2DFEA432000BCD04 /* Managers */,
@@ -132,6 +149,7 @@
 		7CC4668A2DFEA432000BCD04 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				7C8355E12E0810F6005AA12E /* ImagePickerManager.swift */,
 				7CC4668B2DFEA435000BCD04 /* TabsManager.swift */,
 			);
 			path = Managers;
@@ -140,6 +158,8 @@
 		7CC4668F2DFEA467000BCD04 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7C8355F62E08132E005AA12E /* UIButton.swift */,
+				7C8355DF2E080EAB005AA12E /* Data.swift */,
 				7CC467222DFEB448000BCD04 /* ReuseIdentifier.swift */,
 				7CC466F62DFEB28F000BCD04 /* UIView.swift */,
 				7CC466E42DFEAC6F000BCD04 /* URL.swift */,
@@ -217,6 +237,9 @@
 		7CC466CE2DFEAC0B000BCD04 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7C8356112E081631005AA12E /* NetworkOverlayManager.swift */,
+				7C83560F2E08161B005AA12E /* NetworkMonitor.swift */,
+				7C83560B2E08142C005AA12E /* NetworkConnectionVC.swift */,
 				7CC466F02DFEADD3000BCD04 /* Models */,
 				7CC466E82DFEAD4C000BCD04 /* Network.swift */,
 				7CC466CF2DFEAC13000BCD04 /* NetworkProvider.swift */,
@@ -237,6 +260,7 @@
 		7CC466F32DFEB13D000BCD04 /* CustromSubviews */ = {
 			isa = PBXGroup;
 			children = (
+				7C83560D2E08147F005AA12E /* ButtonDefault.swift */,
 				7C8025F22E06A21800E9D612 /* TextFieldView.swift */,
 				7CC467292DFEFA78000BCD04 /* RadioButton.swift */,
 				7CC466F42DFEB14B000BCD04 /* AlertView.swift */,
@@ -326,25 +350,33 @@
 				7CC466912DFEA49C000BCD04 /* UIColor.swift in Sources */,
 				7CC4666A2DFEA3AE000BCD04 /* AppDelegate.swift in Sources */,
 				7CC4666B2DFEA3AE000BCD04 /* SignUpViewController.swift in Sources */,
+				7C8355F72E081332005AA12E /* UIButton.swift in Sources */,
 				7C80260A2E06ABD400E9D612 /* RegistrationModel.swift in Sources */,
 				7CC466EB2DFEADBE000BCD04 /* RequestModels.swift in Sources */,
+				7C8355E02E080EAF005AA12E /* Data.swift in Sources */,
 				7CC466E72DFEAD32000BCD04 /* Network+Extensions.swift in Sources */,
 				7C8025F52E06A3F300E9D612 /* PhotoSourceAlert.swift in Sources */,
+				7C8355E22E0810F7005AA12E /* ImagePickerManager.swift in Sources */,
 				7C8025F32E06A22600E9D612 /* TextFieldView.swift in Sources */,
 				7CC4666C2DFEA3AE000BCD04 /* TabBarController.swift in Sources */,
 				7C80260C2E06BFF700E9D612 /* RegistrationResultViewController.swift in Sources */,
+				7C8356142E081D90005AA12E /* SceneDelegate.swift in Sources */,
+				7C83560E2E081484005AA12E /* ButtonDefault.swift in Sources */,
 				7CC4666D2DFEA3AE000BCD04 /* UsersViewController.swift in Sources */,
 				7CC466AF2DFEA649000BCD04 /* TabBarItem.swift in Sources */,
 				7CC4670C2DFEB37B000BCD04 /* UsersTableView.swift in Sources */,
+				7C8356122E081632005AA12E /* NetworkOverlayManager.swift in Sources */,
 				7CC466D02DFEAC18000BCD04 /* NetworkProvider.swift in Sources */,
 				7CC466932DFEA4CE000BCD04 /* UIImage.swift in Sources */,
 				7CC467252DFEBBE6000BCD04 /* BaseViewController.swift in Sources */,
+				7C8356102E08161C005AA12E /* NetworkMonitor.swift in Sources */,
 				7CC4672A2DFEFA79000BCD04 /* RadioButton.swift in Sources */,
 				7CC467232DFEB448000BCD04 /* ReuseIdentifier.swift in Sources */,
 				7CC466ED2DFEADC3000BCD04 /* ParseModels.swift in Sources */,
 				7CC466B62DFEAA0D000BCD04 /* UIFont.swift in Sources */,
 				7CC466B42DFEA8D6000BCD04 /* NoUsersView.swift in Sources */,
 				7CC466E92DFEAD84000BCD04 /* Network.swift in Sources */,
+				7C83560C2E081438005AA12E /* NetworkConnectionVC.swift in Sources */,
 				7CC466E52DFEAC73000BCD04 /* URL.swift in Sources */,
 				7CC466F72DFEB292000BCD04 /* UIView.swift in Sources */,
 				7CC466F52DFEB14D000BCD04 /* AlertView.swift in Sources */,
@@ -389,6 +421,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -396,6 +429,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = oleg.TestTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -418,6 +455,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -425,6 +463,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = oleg.TestTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

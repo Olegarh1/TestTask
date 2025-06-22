@@ -10,7 +10,7 @@ final class NoUsersView: UIView {
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "success-image")
+        imageView.image = UIImage(named: "usersCircled")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

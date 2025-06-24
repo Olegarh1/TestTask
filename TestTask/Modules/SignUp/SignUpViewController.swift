@@ -58,7 +58,7 @@ class SignUpViewController: BaseViewController, UINavigationControllerDelegate {
     
     private lazy var uploadView = TextFieldView(type: .camera, placeholder: "Upload your photo")
     
-    private lazy var signUpButton: UIButton = ButtonDefault(title: "Sign up", target: self, action: #selector(signUpButtonAction))
+    private lazy var signUpButton = ButtonDefault(title: "Sign up", target: self, action: #selector(signUpButtonAction))
     
     private var positions: [Position] = [] {
         didSet {
@@ -77,6 +77,10 @@ class SignUpViewController: BaseViewController, UINavigationControllerDelegate {
         setNavTitle("Working with POST request")
         setupUI()
         getPositions()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.post(name: .registrationSuccess, object: nil)
     }
 }
 
@@ -143,7 +147,9 @@ private extension SignUpViewController {
             
             signUpButton.topAnchor.constraint(equalTo: uploadView.bottomAnchor, constant: 16),
             signUpButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            signUpButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100)
+            signUpButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100),
+            signUpButton.widthAnchor.constraint(lessThanOrEqualToConstant: 140),
+            signUpButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
     
@@ -256,6 +262,7 @@ private extension SignUpViewController {
                 self.showLoader(false)
                 switch response {
                 case .success(let model):
+                    self.sendObserver(model.success)
                     var message = model.message ?? ""
                     if let fails = model.fails {
                         let detailedErrors = fails.flatMap { $0.value }.joined(separator: "\n")
@@ -269,6 +276,11 @@ private extension SignUpViewController {
                 }
             }
         }
+    }
+    
+    func sendObserver(_ success: Bool) {
+        guard success else { return }
+        NotificationCenter.default.post(name: .registrationSuccess, object: nil)
     }
     
     func showLoader(_ state: Bool) {

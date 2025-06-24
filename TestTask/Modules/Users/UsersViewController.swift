@@ -17,17 +17,21 @@ class UsersViewController: BaseViewController {
         didSet {
             if let oldUsers = oldValue?.users,
                let newUsers = usersData?.users {
-                usersData?.users = oldUsers + newUsers
+                usersData?.users = resetUsers ? newUsers : oldUsers + newUsers
+                resetUsers = false
             }
             updateData()
         }
     }
+    
+    private var resetUsers: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavTitle("Working with GET request")
         setupUI()
         getUsers(page: 1)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUsers), name: .registrationSuccess, object: nil)
     }
 }
 
@@ -115,6 +119,13 @@ private extension UsersViewController {
             usersTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             usersTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    @objc
+    func updateUsers() {
+        print("call function")
+        resetUsers = true
+        getUsers(page: 1)
     }
 }
 

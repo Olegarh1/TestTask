@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C14D2FB2E0A6E7500807756 /* NSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C14D2FA2E0A6E7000807756 /* NSNotification.swift */; };
 		7C8025F32E06A22600E9D612 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8025F22E06A21800E9D612 /* TextFieldView.swift */; };
 		7C8025F52E06A3F300E9D612 /* PhotoSourceAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8025F42E06A3F100E9D612 /* PhotoSourceAlert.swift */; };
 		7C80260A2E06ABD400E9D612 /* RegistrationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8026092E06ABD000E9D612 /* RegistrationModel.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C14D2FA2E0A6E7000807756 /* NSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.swift; sourceTree = "<group>"; };
 		7C8025F22E06A21800E9D612 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		7C8025F42E06A3F100E9D612 /* PhotoSourceAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSourceAlert.swift; sourceTree = "<group>"; };
 		7C8026092E06ABD000E9D612 /* RegistrationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModel.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 		7CC4668F2DFEA467000BCD04 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7C14D2FA2E0A6E7000807756 /* NSNotification.swift */,
 				7C8355F62E08132E005AA12E /* UIButton.swift */,
 				7C8355DF2E080EAB005AA12E /* Data.swift */,
 				7CC467222DFEB448000BCD04 /* ReuseIdentifier.swift */,
@@ -352,6 +355,7 @@
 				7CC4666B2DFEA3AE000BCD04 /* SignUpViewController.swift in Sources */,
 				7C8355F72E081332005AA12E /* UIButton.swift in Sources */,
 				7C80260A2E06ABD400E9D612 /* RegistrationModel.swift in Sources */,
+				7C14D2FB2E0A6E7500807756 /* NSNotification.swift in Sources */,
 				7CC466EB2DFEADBE000BCD04 /* RequestModels.swift in Sources */,
 				7C8355E02E080EAF005AA12E /* Data.swift in Sources */,
 				7CC466E72DFEAD32000BCD04 /* Network+Extensions.swift in Sources */,
